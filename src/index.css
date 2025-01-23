@@ -1,0 +1,77 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+body {
+  background: black;
+  color: white;
+  font-family: 'Orbitron', sans-serif;
+}
+
+.letter {
+  display: inline-block;
+  transform-origin: bottom;
+  transition: all 0.3s ease;
+}
+
+.nav-link {
+  position: relative;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -4px;
+  left: 0;
+  background-color: #3b82f6;
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+.hero-title {
+  text-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+}
+
+.juverse-text {
+  position: relative;
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .juverse-text {
+    transform: scale(0.9);
+    margin: 0 -1rem;
+  }
+}
+
+.letter {
+  transition: color 0.5s ease, text-shadow 0.5s ease;
+}
+
+.event-card {
+  background: rgba(13, 17, 23, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  transition: all 0.3s ease;
+}
+
+.event-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(59, 130, 246, 0.5);
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
+}
+
+.feature-icon {
+  filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.5));
+}
