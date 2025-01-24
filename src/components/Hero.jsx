@@ -1,9 +1,73 @@
 import { useEffect, useRef, useState } from 'react';
+import { Canvas } from '@react-three/fiber';
+import { OrbitControls } from '@react-three/drei';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Code2, Menu, X } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
+
+function Web3Model({ scale = 2 }) {
+  const groupRef = useRef();
+  
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (groupRef.current) {
+        groupRef.current.rotation.y += 0.005;
+      }
+    }, 16);
+    
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <group ref={groupRef} scale={scale}>
+      {/* Outer ring */}
+      <mesh rotation={[Math.PI / 2, 0, 0]}>
+        <torusGeometry args={[1.5, 0.05, 16, 100]} />
+        <meshStandardMaterial color="#2dd4bf" metalness={0.8} roughness={0.2} />
+      </mesh>
+      
+      {/* Inner ring */}
+      <mesh rotation={[0, Math.PI / 4, Math.PI / 2]}>
+        <torusGeometry args={[1.2, 0.05, 16, 100]} />
+        <meshStandardMaterial color="#2dd4bf" metalness={0.8} roughness={0.2} />
+      </mesh>
+      
+      {/* Core sphere */}
+      <mesh>
+        <sphereGeometry args={[0.5, 32, 32]} />
+        <meshStandardMaterial 
+          color="#0f766e" 
+          metalness={0.9}
+          roughness={0.1}
+          emissive="#0d9488"
+          emissiveIntensity={0.5}
+        />
+      </mesh>
+
+      
+      
+      {/* Orbiting spheres */}
+      {[0, Math.PI / 2, Math.PI, -Math.PI / 2].map((angle, i) => (
+        <mesh key={i} position={[
+          Math.cos(angle) * 0.8,
+          Math.sin(angle) * 0.8,
+          0
+        ]}>
+          <sphereGeometry args={[0.1, 16, 16]} />
+          <meshStandardMaterial 
+            color="#14b8a6" 
+            metalness={0.8} 
+            roughness={0.2}
+            emissive="#14b8a6"
+            emissiveIntensity={0.5}
+          />
+        </mesh>
+      ))}
+    </group>
+  );
+}
 
 export default function Hero() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -12,7 +76,6 @@ export default function Hero() {
   const menuRef = useRef(null);
 
   useEffect(() => {
-    
     if (menuRef.current) {
       if (isMenuOpen) {
         gsap.to(menuRef.current, {
@@ -34,29 +97,12 @@ export default function Hero() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      
-      gsap.from('.hero-title', {
-        y: 100,
-        opacity: 0,
-        duration: 1,
-        ease: 'power4.out'
-      });
-
-      gsap.from('.hero-subtitle', {
-        y: 50,
-        opacity: 0,
-        duration: 1,
-        delay: 0.5,
-        ease: 'power4.out'
-      });
-
-      
       const letters = titleRef.current.querySelectorAll('.letter');
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: titleRef.current,
           start: 'top center',
-          end: '+=200%',
+          end: '+=0%',
           scrub: 1,
           pin: true,
           pinSpacing: true,
@@ -64,7 +110,6 @@ export default function Hero() {
         }
       });
 
-      
       letters.forEach((letter, index) => {
         tl.to(letter, {
           color: 'white',
@@ -85,7 +130,7 @@ export default function Hero() {
   };
 
   return (
-    <div ref={heroRef} className="min-h-screen bg-black text-white relative overflow-hidden">
+    <div ref={heroRef} className="min-h-screen relative overflow-hidden ">
       {/* Mobile Menu Overlay */}
       <div
         ref={menuRef}
@@ -97,7 +142,7 @@ export default function Hero() {
             <a
               key={item}
               href={`#${item.toLowerCase().replace(' ', '-')}`}
-              className="text-2xl font-medium hover:text-blue-500 transition-colors"
+              className="text-2xl font-medium hover:text-teal-400 transition-colors"
               onClick={() => setIsMenuOpen(false)}
             >
               {item}
@@ -109,7 +154,7 @@ export default function Hero() {
       <nav className="fixed top-0 left-0 right-0 p-6 z-[51] bg-black/50 backdrop-blur-sm">
         <div className="container mx-auto flex justify-between items-center">
           <div className="flex items-center gap-3">
-            <Code2 className="w-8 h-8 text-blue-500" />
+            <Code2 className="w-8 h-8 text-teal-400" />
             <span className="text-xl font-bold tracking-wider">JUVerse</span>
           </div>
           
@@ -119,7 +164,7 @@ export default function Hero() {
               <a
                 key={item}
                 href={`#${item.toLowerCase().replace(' ', '-')}`}
-                className="nav-link text-sm font-medium hover:text-blue-500 transition-colors"
+                className="nav-link text-sm font-medium hover:text-teal-400 transition-colors"
               >
                 {item}
               </a>
@@ -141,14 +186,42 @@ export default function Hero() {
         </div>
       </nav>
 
-      <div className="container mx-auto pt-48 px-4 relative z-10">
-        <h1 className="hero-title text-center text-4xl md:text-7xl font-bold mb-6 tracking-wider">
-          The FUTURE is PRESENT
-        </h1>
-        <p className="hero-subtitle text-center text-lg md:text-2xl mb-24 text-blue-500 tracking-wide">
-          dive in WEB3.0 with
-        </p>
-        <div ref={titleRef} className="relative">
+      <div className="absolute inset-0 z-10">
+  <Canvas 
+    camera={{ 
+      position: [0, 0, 8], // Increased z position from 6 to 8
+      fov: 45,
+      near: 0.1,
+      far: 1000 
+    }}
+  >
+    <ambientLight intensity={0.5} />
+    <spotLight 
+      position={[10, 10, 60]} 
+      angle={0.15} 
+      penumbra={1} 
+      intensity={1} 
+    />
+    <pointLight 
+      position={[-10, -10, -15]} 
+      intensity={0.5} 
+    />
+    <Web3Model 
+      position={[0, 0, 0]} 
+      scale={1.2} 
+    />
+    <OrbitControls 
+      enableZoom={false}
+      minPolarAngle={Math.PI / 2.5}
+      maxPolarAngle={Math.PI / 4.5}
+      minDistance={6} 
+      maxDistance={10} 
+    />
+  </Canvas>
+</div>
+
+      <div className="container mx-auto relative z-20">
+        <div ref={titleRef} className="relative mt-[65vh]">
           <div className="juverse-text text-center">
             <div className="text-[60px] md:text-[200px] font-black whitespace-nowrap overflow-hidden">
               {'JUVERSE'.split('').map((letter, index) => (
@@ -156,7 +229,7 @@ export default function Hero() {
                   key={index} 
                   className="letter inline-block transition-colors duration-500"
                   style={{
-                    WebkitTextStroke: '2px rgba(59, 130, 246, 0.3)',
+                    WebkitTextStroke: '2px rgba(45, 212, 191, 0.3)',
                     color: 'transparent'
                   }}
                 >
@@ -169,10 +242,10 @@ export default function Hero() {
       </div>
 
       {/* Decorative elements */}
-      <div className="absolute top-0 left-0 w-full h-full">
-        <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-blue-500 rounded-full animate-pulse" />
-        <div className="absolute top-1/3 right-1/4 w-2 h-2 bg-blue-500 rounded-full animate-pulse delay-150" />
-        <div className="absolute bottom-1/4 left-1/3 w-2 h-2 bg-blue-500 rounded-full animate-pulse delay-300" />
+      <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
+        <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-teal-400 rounded-full animate-pulse" />
+        <div className="absolute top-1/3 right-1/4 w-2 h-2 bg-teal-400 rounded-full animate-pulse delay-150" />
+        <div className="absolute bottom-1/4 left-1/3 w-2 h-2 bg-teal-400 rounded-full animate-pulse delay-300" />
       </div>
     </div>
   );

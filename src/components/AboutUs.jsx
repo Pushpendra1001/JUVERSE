@@ -25,7 +25,7 @@ const features = [
 
 export default function AboutUs() {
   return (
-    <section id="about-us" className="py-32 bg-black text-white relative">
+    <section id="about-us" className="py-32 text-white relative">
       <div className="container mx-auto px-4">
         <h2 className="text-6xl font-bold mb-16 tracking-wider text-center">About Us</h2>
         <p className="text-xl mb-24 max-w-4xl mx-auto text-center leading-relaxed tracking-wide text-gray-300">
@@ -45,11 +45,6 @@ export default function AboutUs() {
         </div>
       </div>
 
-      {/* Decorative background elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 left-1/4 w-px h-full bg-gradient-to-b from-transparent via-blue-500/20 to-transparent" />
-        <div className="absolute top-0 right-1/4 w-px h-full bg-gradient-to-b from-transparent via-blue-500/20 to-transparent" />
-      </div>
     </section>
   );
 }
