@@ -2,6 +2,7 @@ import React from 'react';
 import Hero from './components/Hero';
 import AboutUs from './components/AboutUs';
 import Events from './components/Events';
+import CylinderInteraction from './components/CylinderInteraction';
 import BackgroundGradient from './components/BackgroundGradient';
 
 function App() {
