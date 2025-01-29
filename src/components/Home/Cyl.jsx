@@ -2,7 +2,7 @@ import React, { useRef } from 'react'
 import { PerspectiveCamera, PositionalAudio, CameraControls, OrbitControls, useTexture } from '@react-three/drei'
 import * as THREE from 'three'
 import { useFrame } from '@react-three/fiber'
-import { images } from '../models/ExportImg'
+import { images } from '../../models/ExportImg'
 
 
 const Cyl = () => {

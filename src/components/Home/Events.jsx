@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Calendar } from 'lucide-react';
-import { images } from '../models/ExportImg.js';
+import { images } from '../../models/ExportImg.js';
 import { _config } from 'gsap/gsap-core.js';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -12,14 +12,14 @@ export default function Events() {
 
   useEffect(() => {
     Shery.hoverWithMediaCircle(".event-image" /* Element to target.*/, {
-      images: [ images.water] /*OR*/,
+      images: [images.water] /*OR*/,
       //videos: ["video1.mp4", "video2.mp4"],
     });
 
-    
+
     // GSAP animations
     const eventCards = document.querySelectorAll('.event-card');
-    
+
     eventCards.forEach((card, index) => {
       const image = card.querySelector('.event-image');
       const content = card.querySelector('.w-full.md\\:w-1\\/2.space-y-4');
@@ -37,7 +37,7 @@ export default function Events() {
             duration: 1,
             ease: 'power3.out'
           });
-          
+
           gsap.to(content, {
             opacity: 1,
             x: 0,
@@ -69,22 +69,22 @@ export default function Events() {
 
 
   return (
-    <section id="events" className="py-32 relative" ref={sectionRef}>
+    <section id="events" className="pb-32 relative" ref={sectionRef}>
       <div className="container mx-auto px-4">
         <h2 className="text-6xl font-bold mb-16 tracking-wider text-center">
           Upcoming Events
         </h2>
-        
+
         <div className="space-y-24">
           {/* Event 1 */}
           <div className="event-card flex flex-col md:flex-row gap-8 items-center">
             <div className="w-full md:w-1/2">
-              <img 
+              <img
                 src={images.web3}
                 alt="Web3 Development Workshop"
                 className="event-image rounded-xl shadow-2xl w-full aspect-video object-cover"
               />
-            
+
             </div>
             <div className="w-full md:w-1/2 space-y-4">
               <div className="flex items-center gap-2 text-teal-400">
@@ -97,15 +97,18 @@ export default function Events() {
               <p className="text-gray-400 leading-relaxed">
                 Learn the fundamentals of Web3 development with hands-on experience building DApps.
               </p>
-              <button className="px-6 py-3 bg-teal-500/10 border border-teal-500/20 rounded-lg hover:bg-teal-500/20 transition-colors text-teal-300">
-                Learn More
+            
+              <button class="ui-btn rounded-md bg-teal-500/10">
+                <span className='text-green-100 '>
+                  Learn More
+                </span>
               </button>
             </div>
           </div>
 
           <div className="event-card flex flex-col md:flex-row-reverse gap-8 items-center">
             <div className="w-full md:w-1/2">
-              <img 
+              <img
                 src={images.blockchain}
                 alt="Blockchain Gaming Hackathon"
                 className="event-image rounded-xl shadow-2xl w-full aspect-video object-cover"
@@ -122,15 +125,17 @@ export default function Events() {
               <p className="text-gray-400 leading-relaxed">
                 Join us for a 24-hour hackathon focused on building the future of blockchain gaming.
               </p>
-              <button className="px-6 py-3 bg-teal-500/10 border border-teal-500/20 rounded-lg hover:bg-teal-500/20 transition-colors text-teal-300">
-                Learn More
+              <button class="ui-btn rounded-md bg-teal-500/10">
+                <span className='text-green-100 '>
+                  Learn More
+                </span>
               </button>
             </div>
           </div>
 
-            <div className="event-card flex flex-col md:flex-row gap-8 items-center">
+          <div className="event-card flex flex-col md:flex-row gap-8 items-center">
             <div className="w-full md:w-1/2">
-              <img 
+              <img
                 src={images.defi}
                 alt="DeFi Summit"
                 className="event-image rounded-xl shadow-2xl w-full aspect-video object-cover"
@@ -147,15 +152,17 @@ export default function Events() {
               <p className="text-gray-400 leading-relaxed">
                 Explore the latest trends and innovations in decentralized finance.
               </p>
-              <button className="px-6 py-3 bg-teal-500/10 border border-teal-500/20 rounded-lg hover:bg-teal-500/20 transition-colors text-teal-300">
-                Learn More
+              <button class="ui-btn rounded-md bg-teal-500/10">
+                <span className='text-green-100 '>
+                  Learn More
+                </span>
               </button>
             </div>
           </div>
 
           <div className="event-card flex flex-col md:flex-row-reverse gap-8 items-center">
             <div className="w-full md:w-1/2">
-              <img 
+              <img
                 src={images.nft}
                 alt="NFT Art Exhibition"
                 className="event-image rounded-xl shadow-2xl w-full aspect-video object-cover"
@@ -172,8 +179,10 @@ export default function Events() {
               <p className="text-gray-400 leading-relaxed">
                 Showcase of digital art and NFTs created by our community members.
               </p>
-              <button className="px-6 py-3 bg-teal-500/10 border border-teal-500/20 rounded-lg hover:bg-teal-500/20 transition-colors text-teal-300">
-                Learn More
+             <button class="ui-btn rounded-md bg-teal-500/10">
+                <span className='text-green-100 '>
+                  Learn More
+                </span>
               </button>
             </div>
           </div>

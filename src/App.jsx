@@ -1,20 +1,17 @@
 import React from 'react';
-import Hero from './components/Hero';
-import AboutUs from './components/AboutUs';
-import Events from './components/Events';
-import CylinderInteraction from './components/CylinderInteraction';
-import BackgroundGradient from './components/BackgroundGradient';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+
+import Home from './components/Home/Home';
+import DetailEvent from './components/Detailevent';
 
 function App() {
   return (
-    <main className="relative">
-      <BackgroundGradient />
-      <div className="relative z-10">
-        <Hero />
-        <AboutUs />
-        <Events />
-      </div>
-    </main>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/detailevent" element={<DetailEvent />} />
+      </Routes>
+    </Router>
   );
 }
 
