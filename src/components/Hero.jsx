@@ -4,6 +4,8 @@ import { OrbitControls } from '@react-three/drei';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Code2, Menu, X } from 'lucide-react';
+import Cyl from './Cyl';
+import CylinderInteraction from './CylinderInteraction';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -17,55 +19,49 @@ function Web3Model({ scale = 2 }) {
       }
     }, 16);
     
+  
     return () => clearInterval(interval);
+
   }, []);
 
   return (
-    <group ref={groupRef} scale={scale}>
-      {/* Outer ring */}
-      <mesh rotation={[Math.PI / 2, 0, 0]}>
-        <torusGeometry args={[1.5, 0.05, 16, 100]} />
-        <meshStandardMaterial color="#2dd4bf" metalness={0.8} roughness={0.2} />
-      </mesh>
-      
-      {/* Inner ring */}
-      <mesh rotation={[0, Math.PI / 4, Math.PI / 2]}>
-        <torusGeometry args={[1.2, 0.05, 16, 100]} />
-        <meshStandardMaterial color="#2dd4bf" metalness={0.8} roughness={0.2} />
-      </mesh>
-      
-      {/* Core sphere */}
-      <mesh>
-        <sphereGeometry args={[0.5, 32, 32]} />
-        <meshStandardMaterial 
-          color="#0f766e" 
-          metalness={0.9}
-          roughness={0.1}
-          emissive="#0d9488"
-          emissiveIntensity={0.5}
-        />
-      </mesh>
-
-      
-      
-      {/* Orbiting spheres */}
-      {[0, Math.PI / 2, Math.PI, -Math.PI / 2].map((angle, i) => (
-        <mesh key={i} position={[
-          Math.cos(angle) * 0.8,
-          Math.sin(angle) * 0.8,
-          0
-        ]}>
-          <sphereGeometry args={[0.1, 16, 16]} />
-          <meshStandardMaterial 
-            color="#14b8a6" 
-            metalness={0.8} 
-            roughness={0.2}
-            emissive="#14b8a6"
-            emissiveIntensity={0.5}
-          />
-        </mesh>
-      ))}
-    </group>
+    <>
+    <Canvas flat camera={{ position: [0, -2, 13] ,fov:65 }}>
+    <OrbitControls dampingFactor={.01} enableZoom={false}/>
+    <ambientLight intensity={1.9}/>
+    <directionalLight position={[1, 10, 10]} intensity={0.5}/>
+    <pointLight position={[5, -20, 5]} intensity={ 2 }/>
+    {/* <CameraControls/> */}
+    <Cyl/>
+    <EffectComposer>
+    <Bloom
+    mipmapBlur
+    intensity={3.0} // The bloom intensity.
+    luminanceThreshold={0.3} // luminance threshold. Raise this value to mask out darker elements in the scene.
+    luminanceSmoothing={0.1} // smoothness of the luminance threshold. Range is [0, 1]
+  />
+    <Vignette
+    darkness={0.8} // The darkness of the vignette. Range is [0, 1].
+    blur={.5} // The blur radius.
+    />
+    <Noise 
+      premultiply={true} // enables or disables noise premultiplication
+      blendFunction={BlendFunction.ADD} // blend mode
+    />
+    <Glitch
+    delay={[1.4, 4]} // min and max glitch delay
+    duration={[0.6, 1.0]} // min and max glitch duration
+    strength={[0.3, 1.0]} // min and max glitch strength
+    mode={GlitchMode.SPORADIC} // glitch mode
+    active // turn on/off the effect (switches between "mode" prop and GlitchMode.DISABLED)
+    ratio={.9} // Threshold for strong glitches, 0 - no weak glitches, 1 - no strong glitches.
+  />
+    </EffectComposer>
+    </Canvas>
+    <div className='select-none w-full h-fit bg-blend-multiply backdrop-blur-sm absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-slate-400'>
+      <h1 className='text-8xl capitalize font-bold tracking-tighter leading-none text-center drop-shadow-2xl'>JUVERSE</h1>
+    </div>
+    </>
   );
 }
 
@@ -129,9 +125,11 @@ export default function Hero() {
     setIsMenuOpen(!isMenuOpen);
   };
 
+ 
+ 
+
   return (
     <div ref={heroRef} className="min-h-screen relative overflow-hidden ">
-      {/* Mobile Menu Overlay */}
       <div
         ref={menuRef}
         className="fixed inset-0 bg-black/95 backdrop-blur-lg z-50 items-center justify-center hidden md:hidden"
@@ -154,11 +152,11 @@ export default function Hero() {
       <nav className="fixed top-0 left-0 right-0 p-6 z-[51] bg-black/50 backdrop-blur-sm">
         <div className="container mx-auto flex justify-between items-center">
           <div className="flex items-center gap-3">
-            <Code2 className="w-8 h-8 text-teal-400" />
-            <span className="text-xl font-bold tracking-wider">JUVerse</span>
+            <Code2 className="w-8 h-8  text-teal-400" />
+            <span className="myhead text-xl font-bold tracking-wider">JUVerse</span>
           </div>
           
-          {/* Desktop Menu */}
+          
           <div className="hidden md:flex gap-12">
             {['About Us', 'Events', 'Projects', 'Team'].map((item) => (
               <a
@@ -171,7 +169,7 @@ export default function Hero() {
             ))}
           </div>
 
-          {/* Mobile Menu Button */}
+          
           <button 
             className="md:hidden z-[52] w-10 h-10 flex items-center justify-center"
             onClick={toggleMenu}
@@ -186,67 +184,20 @@ export default function Hero() {
         </div>
       </nav>
 
-      <div className="absolute inset-0 z-10">
-  <Canvas 
-    camera={{ 
-      position: [0, 0, 8], // Increased z position from 6 to 8
-      fov: 45,
-      near: 0.1,
-      far: 1000 
-    }}
-  >
-    <ambientLight intensity={0.5} />
-    <spotLight 
-      position={[10, 10, 60]} 
-      angle={0.15} 
-      penumbra={1} 
-      intensity={1} 
-    />
-    <pointLight 
-      position={[-10, -10, -15]} 
-      intensity={0.5} 
-    />
-    <Web3Model 
-      position={[0, 0, 0]} 
-      scale={1.2} 
-    />
-    <OrbitControls 
-      enableZoom={false}
-      minPolarAngle={Math.PI / 2.5}
-      maxPolarAngle={Math.PI / 4.5}
-      minDistance={6} 
-      maxDistance={10} 
-    />
-  </Canvas>
-</div>
 
-      <div className="container mx-auto relative z-20">
-        <div ref={titleRef} className="relative mt-[65vh]">
-          <div className="juverse-text text-center">
-            <div className="text-[60px] md:text-[200px] font-black whitespace-nowrap overflow-hidden">
-              {'JUVERSE'.split('').map((letter, index) => (
-                <span 
-                  key={index} 
-                  className="letter inline-block transition-colors duration-500"
-                  style={{
-                    WebkitTextStroke: '2px rgba(45, 212, 191, 0.3)',
-                    color: 'transparent'
-                  }}
-                >
-                  {letter}
-                </span>
-              ))}
+        <CylinderInteraction />
+
+        <div className="container mx-auto relative z-20">
+          <div ref={titleRef} className="relative mt-[5vh]">
+            <div className="juverse-text text-center">
+            <span className="webtitle text-9xl font-bold tracking-wider text-white">
+                JUVERSE
+              </span>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Decorative elements */}
-      <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-teal-400 rounded-full animate-pulse" />
-        <div className="absolute top-1/3 right-1/4 w-2 h-2 bg-teal-400 rounded-full animate-pulse delay-150" />
-        <div className="absolute bottom-1/4 left-1/3 w-2 h-2 bg-teal-400 rounded-full animate-pulse delay-300" />
-      </div>
+      
     </div>
   );
 }
