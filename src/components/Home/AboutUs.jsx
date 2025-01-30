@@ -20,7 +20,7 @@ const features = [
     icon: Trophy,
     title: 'Right guidance & mentorship',
     description: 'Get personalized support'
-  }
+  } 
 ];
 
 export default function AboutUs() {

@@ -17,7 +17,7 @@ function EventCard({ event }) {
 
   return (
     <div
-      className="relative min-h-[55vh] min-w-[400px] mx-5 shrink-0 rounded-2xl overflow-hidden border border-[#ffffff7c]"
+      className="relative min-h-[55vh] min-w-[400px] mx-5 shrink-0 rounded-2xl overflow-hidden  border-2 border-[#79a29e]"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -69,8 +69,8 @@ function PreEvents() {
         </div>
       </div>
 
-      <div className="min-h-[60vh] w-[100%] bg-[#ffffff29] py-5 rounded-3xl">
-        <Marquee pauseOnHover={true} speed={70} direction={direction}>
+      <div className="min-h-[60vh] w-[100%] bg-[#ffffff27] py-5 rounded-3xl   ">
+        <Marquee pauseOnHover={true} speed={70} direction={direction} >
           {eventsData.map(event => (
             <EventCard key={event.id} event={event} />
           ))}
@@ -78,18 +78,18 @@ function PreEvents() {
       </div>
 
       <div className="mt-10 min-h-[10vh] px-20 flex justify-between items-center">
-        <h2>
+        <h2 className='text-[#4db6ac95]'>
           Ju Verse has hosted multiple high-level past events. <br /> Here are some great events organized by them.
         </h2>
         <div className="flex gap-5 ">
           <button
-            className="px-3 py-1 flex justify-center items-center border rounded-md gap-2"
+            className="px-3 py-1 flex justify-center items-center border border-[#4db6ac95] rounded-md gap-2 hover:bg-[#4db6ac47]"
             onClick={() => setDirection('left')}
           >
             <IoIosArrowBack /> Left
           </button>
           <button
-            className="px-3 py-1 flex justify-center items-center border rounded-md gap-2 hover:bg-white"
+            className="px-3 py-1 flex justify-center items-center border border-[#4db6ac95] rounded-md gap-2 hover:bg-[#4db6ac47]"
             onClick={() => setDirection('right')}
           >
             Right <IoIosArrowForward />
@@ -101,3 +101,5 @@ function PreEvents() {
 }
 
 export default PreEvents;
+
+

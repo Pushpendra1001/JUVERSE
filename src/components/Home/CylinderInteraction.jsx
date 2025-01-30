@@ -10,7 +10,7 @@ import Cyl from './Cyl'
 export default function CylinderInteraction() {
   return (
     <>
-    <div className='w-full h-[70vh]'>
+    <div className='w-full h-[70vh] mt-12'>
     <Canvas flat camera={{ position: [0, -2, 13] ,fov:65 }}>
     <OrbitControls dampingFactor={.01} enableZoom={false}/>
     <ambientLight intensity={1.9}/>
