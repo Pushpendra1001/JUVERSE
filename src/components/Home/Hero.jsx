@@ -1,295 +1,204 @@
+
+
+
 // import { useEffect, useRef, useState } from 'react';
-// import { Canvas } from '@react-three/fiber';
-// import { OrbitControls } from '@react-three/drei';
+// import { Canvas, useFrame } from '@react-three/fiber';
+// import { OrbitControls, Stars } from '@react-three/drei';
 // import gsap from 'gsap';
 // import { ScrollTrigger } from 'gsap/ScrollTrigger';
-// import { Code2, Menu, X } from 'lucide-react';
-// import Cyl from './Cyl';
-// import CylinderInteraction from './CylinderInteraction';
+// import * as THREE from 'three';
+// import Nav from './Nav';
 
 // gsap.registerPlugin(ScrollTrigger);
 
-// function Web3Model({ scale = 2 }) {
-//   const groupRef = useRef();
-  
-//   useEffect(() => {
-//     const interval = setInterval(() => {
-//       if (groupRef.current) {
-//         groupRef.current.rotation.y += 0.005;
-//       }
-//     }, 16);
-    
-  
-//     return () => clearInterval(interval);
+// function Sphere({ position, scale = 2, color = '#161616', mousePos }) {
+//   const sphereRef = useRef();
 
-//   }, []);
+//   useFrame(() => {
+//     if (sphereRef.current) {
+//       sphereRef.current.rotation.y += 0.01;
+
+//       // Move opposite to cursor
+//       const offsetX = (mousePos.x - 0.5) * -1; // Convert mouse position to range (-1 to 1)
+//       const offsetY = (mousePos.y - 0.5) * -1;
+//       gsap.to(sphereRef.current.position, { 
+//         x: position[0] + offsetX, 
+//         y: position[1] + offsetY, 
+//         duration: 0.5, 
+//         ease: 'power2.out' 
+//       });
+//     }
+//   });
 
 //   return (
-//     <>
-//     <Canvas flat camera={{ position: [0, -2, 13] ,fov:65 }}>
-//     <OrbitControls dampingFactor={.01} enableZoom={false}/>
-//     <ambientLight intensity={1.9}/>
-//     <directionalLight position={[1, 10, 10]} intensity={0.5}/>
-//     <pointLight position={[5, -20, 5]} intensity={ 2 }/>
-//     {/* <CameraControls/> */}
-//     <Cyl/>
-//     <EffectComposer>
-//     <Bloom
-//     mipmapBlur
-//     intensity={3.0} // The bloom intensity.
-//     luminanceThreshold={0.3} // luminance threshold. Raise this value to mask out darker elements in the scene.
-//     luminanceSmoothing={0.1} // smoothness of the luminance threshold. Range is [0, 1]
-//   />
-//     <Vignette
-//     darkness={0.8} // The darkness of the vignette. Range is [0, 1].
-//     blur={.5} // The blur radius.
-//     />
-//     <Noise 
-//       premultiply={true} // enables or disables noise premultiplication
-//       blendFunction={BlendFunction.ADD} // blend mode
-//     />
-//     <Glitch
-//     delay={[1.4, 4]} // min and max glitch delay
-//     duration={[0.6, 1.0]} // min and max glitch duration
-//     strength={[0.3, 1.0]} // min and max glitch strength
-//     mode={GlitchMode.SPORADIC} // glitch mode
-//     active // turn on/off the effect (switches between "mode" prop and GlitchMode.DISABLED)
-//     ratio={.9} // Threshold for strong glitches, 0 - no weak glitches, 1 - no strong glitches.
-//   />
-//     </EffectComposer>
-//     </Canvas>
-//     <div className='select-none w-full h-fit bg-blend-multiply backdrop-blur-sm absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-slate-400'>
-//       <h1 className='text-8xl capitalize font-bold tracking-tighter leading-none text-center drop-shadow-2xl'>JUVERSE</h1>
-//     </div>
-//     </>
+//     <mesh ref={sphereRef} position={position} scale={scale}>
+//       <sphereGeometry args={[1, 64, 64]} />
+//       <meshStandardMaterial color={color} roughness={0.8} metalness={0.3} />
+//     </mesh>
 //   );
 // }
 
 // export default function Hero() {
-//   const [isMenuOpen, setIsMenuOpen] = useState(false);
 //   const heroRef = useRef(null);
 //   const titleRef = useRef(null);
-//   const menuRef = useRef(null);
+//   const [mousePos, setMousePos] = useState({ x: 0.5, y: 0.5 });
 
 //   useEffect(() => {
-//     if (menuRef.current) {
-//       if (isMenuOpen) {
-//         gsap.to(menuRef.current, {
-//           opacity: 1,
-//           duration: 0.5,
-//           ease: 'power3.out',
-//           display: 'flex'
-//         });
-//       } else {
-//         gsap.to(menuRef.current, {
-//           opacity: 0,
-//           duration: 0.3,
-//           ease: 'power3.in',
-//           display: 'none'
-//         });
-//       }
-//     }
-//   }, [isMenuOpen]);
+//     gsap.fromTo(titleRef.current,
+//       { opacity: 0, y: 50, scale: 0.8 },
+//       { opacity: 1, y: 0, scale: 1, duration: 1.5, ease: 'power2.out' }
+//     );
 
-//   useEffect(() => {
-//     const ctx = gsap.context(() => {
-//       const letters = titleRef.current.querySelectorAll('.letter');
-//       const tl = gsap.timeline({
-//         scrollTrigger: {
-//           trigger: titleRef.current,
-//           start: 'top center',
-//           end: '+=0%',
-//           scrub: 1,
-//           pin: true,
-//           pinSpacing: true,
-//           markers: false
-//         }
+//     // Track mouse position
+//     const handleMouseMove = (event) => {
+//       setMousePos({
+//         x: event.clientX / window.innerWidth,
+//         y: event.clientY / window.innerHeight
 //       });
+//     };
 
-//       letters.forEach((letter, index) => {
-//         tl.to(letter, {
-//           color: 'white',
-//           textShadow: '0 0 30px rgba(255, 255, 255, 0.5)',
-//           duration: 1,
-//           ease: 'power2.inOut'
-//         }, index * 0.2);
-//       });
-
-//       tl.to({}, { duration: 0.5 });
-//     }, heroRef);
-
-//     return () => ctx.revert();
+//     window.addEventListener("mousemove", handleMouseMove);
+//     return () => window.removeEventListener("mousemove", handleMouseMove);
 //   }, []);
 
-//   const toggleMenu = () => {
-//     setIsMenuOpen(!isMenuOpen);
-//   };
-
- 
- 
-
 //   return (
-//     <div ref={heroRef} className="min-h-screen relative overflow-hidden ">
-//       <div
-//         ref={menuRef}
-//         className="fixed inset-0 bg-black/95 backdrop-blur-lg z-50 items-center justify-center hidden md:hidden"
-//         style={{ opacity: 0 }}
-//       >
-//         <div className="flex flex-col items-center justify-center h-full gap-12">
-//           {['About Us', 'Events', 'Projects', 'Team'].map((item) => (
-//             <a
-//               key={item}
-//               href={`#${item.toLowerCase().replace(' ', '-')}`}
-//               className="text-2xl font-medium hover:text-teal-400 transition-colors"
-//               onClick={() => setIsMenuOpen(false)}
-//             >
-//               {item}
-//             </a>
-//           ))}
-//         </div>
+//     <div ref={heroRef} className="min-h-screen relative overflow-hidden bg-black text-white">
+//       <Nav />
+//       <div className="absolute inset-0 z-0">
+//         <Canvas camera={{ position: [0, 0, 10], fov: 60 }}>
+//           <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={0.8} />
+//           <ambientLight intensity={2} />
+//           <directionalLight position={[0, 10, 5]} intensity={1} />
+//           <pointLight position={[-5, -10, 5]} intensity={2} />
+//           <Stars radius={100} depth={50} count={5000} factor={4} fade speed={1} />
+
+//           {/* Multiple Moving Spheres */}
+//           <Sphere position={[0, 0, 0]} scale={2.5} color="#5ce2d4" mousePos={mousePos} />
+//           <Sphere position={[-4, 2, -4]} scale={1.5} color="#ff6b6b" mousePos={mousePos} />
+//           <Sphere position={[5, -2, 5]} scale={2} color="#feca57" mousePos={mousePos} />
+//           <Sphere position={[-2, -3, 5]} scale={1.2} color="#1dd1a1" mousePos={mousePos} />
+//           <Sphere position={[6, 3, -3]} scale={1.8} color="#ff9ff3" mousePos={mousePos} />
+//           <Sphere position={[3, 4, 2]} scale={1.6} color="#9b59b6" mousePos={mousePos} />
+//           <Sphere position={[-10, 5, -8]} scale={2.2} color="#ffcc00" mousePos={mousePos} />
+//           <Sphere position={[10, -6, 6]} scale={1.9} color="#00aaff" mousePos={mousePos} />
+//         </Canvas>
 //       </div>
+//       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen text-center">
+//         <h1 ref={titleRef} className="text-9xl font-bold tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-[#5ce2d4] to-[#263836] drop-shadow-3xl">
+//           JU VERSE
+//         </h1>
+//         <p className="mt-4 text-lg text-gray-300 max-w-xl animate-fadeIn">
+//           Explore the future of digital interaction with Web3 technology and immersive experiences.
+//         </p>
 
-//       <nav className="fixed top-0 left-0 right-0 p-6 z-[51] bg-black/50 backdrop-blur-sm">
-//         <div className="container mx-auto flex justify-between items-center">
-//           <div className="flex items-center gap-3">
-//             <Code2 className="w-8 h-8  text-teal-400" />
-//             <span className="myhead text-xl font-bold tracking-wider">JUVerse</span>
-//           </div>
-          
-          
-//           <div className="hidden md:flex gap-12">
-//             {['About Us', 'Events', 'Projects', 'Team'].map((item) => (
-//               <a
-//                 key={item}
-//                 href={`#${item.toLowerCase().replace(' ', '-')}`}
-//                 className="nav-link text-sm font-medium hover:text-teal-400 transition-colors"
-//               >
-//                 {item}
-//               </a>
-//             ))}
-//           </div>
-
-          
-//           <button 
-//             className="md:hidden z-[52] w-10 h-10 flex items-center justify-center"
-//             onClick={toggleMenu}
-//             aria-label="Toggle menu"
-//           >
-//             {isMenuOpen ? (
-//               <X className="w-8 h-8 text-white transition-transform duration-300" />
-//             ) : (
-//               <Menu className="w-8 h-8 text-white transition-transform duration-300" />
-//             )}
-//           </button>
-//         </div>
-//       </nav>
-
-
-//         <CylinderInteraction />
-
-//         <div className="container mx-auto relative z-20">
-//           <div ref={titleRef} className="relative mt-[5vh]">
-//             <div className="juverse-text text-center">
-//             <span className="webtitle text-9xl font-bold tracking-wider text-white">
-//                 JUVERSE
-//               </span>
-//             </div>
-//           </div>
-//         </div>
-
-      
+//         <button className="ui-btn bg-[#ffffff3e] mt-8 border border-[#ffff] rounded-md bg-teal-500/10">
+//           <span className="text-green-100">
+//             Enter the future
+//           </span>
+//         </button>
+//       </div>
 //     </div>
 //   );
 // }
 
-import { useEffect, useRef } from 'react';
-import { Canvas } from '@react-three/fiber';
-import { OrbitControls } from '@react-three/drei';
+
+import { useEffect, useRef, useState } from 'react';
+import { Canvas, useFrame } from '@react-three/fiber';
+import { OrbitControls, Stars } from '@react-three/drei';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import Cyl from './Cyl';
-import CylinderInteraction from './CylinderInteraction';
+import * as THREE from 'three';
 import Nav from './Nav';
-
 
 gsap.registerPlugin(ScrollTrigger);
 
-function Web3Model({ scale = 2 }) {
-  const groupRef = useRef();
-  
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (groupRef.current) {
-        groupRef.current.rotation.y += 0.005;
-      }
-    }, 16);
-    
-    return () => clearInterval(interval);
-  }, []);
+function Sphere({ position, scale = 2, color = '#161616', mousePos }) {
+  const sphereRef = useRef();
+
+  useFrame(() => {
+    if (sphereRef.current) {
+      sphereRef.current.rotation.y += 0.01;
+
+      const offsetX = (mousePos.x - 0.5) * -2; // Convert mouse position to range (-1 to 1)
+      const offsetY = (mousePos.y - 0.5) * -2;
+      gsap.to(sphereRef.current.position, { 
+        x: position[0] + offsetX, 
+        y: position[1] + offsetY, 
+        duration: 0.5, 
+        ease: 'power1.out' 
+      });
+    }
+  });
 
   return (
-    <>
-      <Canvas flat camera={{ position: [0, -2, 13], fov: 65 }} >
-        <OrbitControls dampingFactor={0.01} enableZoom={false} />
-        <ambientLight intensity={1.9} />
-        <directionalLight position={[1, 10, 10]} intensity={0.5} />
-        <pointLight position={[5, -20, 5]} intensity={2} />
-        <Cyl />
-      </Canvas>
-      <div className='select-none w-full h-fit bg-blend-multiply backdrop-blur-sm absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-slate-400'>
-        <h1 className='text-8xl capitalize font-bold tracking-tighter leading-none text-center drop-shadow-2xl'>JUVERSE</h1>
-      </div>
-    </>
+    <mesh ref={sphereRef} position={position} scale={scale}>
+      <sphereGeometry args={[1, 64, 64]} />
+      <meshStandardMaterial color={color} roughness={0.8} metalness={0.3} />
+    </mesh>
   );
 }
 
 export default function Hero() {
   const heroRef = useRef(null);
   const titleRef = useRef(null);
+  const [mousePos, setMousePos] = useState({ x: 0.5, y: 0.5 });
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      const letters = titleRef.current.querySelectorAll('.letter');
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: titleRef.current,
-          start: 'top center',
-          end: '+=0%',
-          scrub: 1,
-          pin: true,
-          pinSpacing: true,
-          markers: false
-        }
+    gsap.fromTo(titleRef.current,
+      { opacity: 0, y: 50, scale: 0.8 },
+      { opacity: 1, y: 0, scale: 1, duration: 1.5, ease: 'power2.out' }
+    );
+
+    const handleMouseMove = (event) => {
+      setMousePos({
+        x: event.clientX / window.innerWidth,
+        y: event.clientY / window.innerHeight
       });
+    };
 
-      letters.forEach((letter, index) => {
-        tl.to(letter, {
-          color: 'white',
-          textShadow: '0 0 30px rgba(255, 255, 255, 0.5)',
-          duration: 1,
-          ease: 'power2.inOut'
-        }, index * 0.2);
-      });
-
-      tl.to({}, { duration: 0.5 });
-    }, heroRef);
-
-    return () => ctx.revert();
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
   return (
-    <div ref={heroRef} className="min-h-screen relative overflow-hidden">
-    <Nav/>
-    
-      <CylinderInteraction />
-      <div className="container mx-auto relative z-20">
-        <div ref={titleRef} className="relative mt-[5vh]">
-          <div className="juverse-text text-center">
-            <span className="webtitle text-9xl font-bold tracking-wider text-white">
-              JUVERSE
-            </span>
-          </div>
-        </div>
+    <div ref={heroRef} className="min-h-screen relative overflow-hidden bg-black text-white">
+      <Nav />
+      <div className="absolute inset-0 z-0">
+        <Canvas camera={{ position: [0, 0, 10], fov: 60 }}>
+          <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={0.8} />
+          <ambientLight intensity={2} />
+          <directionalLight position={[0, 10, 5]} intensity={1} />
+          <pointLight position={[-5, -10, 5]} intensity={2} />
+          <Stars radius={100} depth={10} count={7000} factor={4} fade speed={1} />
+
+          <Sphere position={[0, 0, 0]} scale={2.5} color="#5ce2d4" mousePos={mousePos} />
+          <Sphere position={[-4, 2, -4]} scale={1.5} color="#ff6b6b" mousePos={mousePos} />
+          <Sphere position={[5, -2, 5]} scale={2} color="#feca57" mousePos={mousePos} />
+          <Sphere position={[6, 3, -3]} scale={1.8} color="#ff9ff3" mousePos={mousePos} />
+          <Sphere position={[3, 4, 2]} scale={1.6} color="#9b59b6" mousePos={mousePos} />
+          <Sphere position={[-10, 5, -8]} scale={2.2} color="#ffcc00" mousePos={mousePos} />
+          <Sphere position={[1, -5, 3]} scale={2.3} color="#ff4444" mousePos={mousePos} />
+          <Sphere position={[-6, -10, -3]} scale={1.7} color="#4287f5" mousePos={mousePos} />
+          <Sphere position={[8, -7, 30]} scale={2} color="#ffcc00" mousePos={mousePos} />
+          <Sphere position={[-4, -1, -6]} scale={1.5} color="#1dd1a1" mousePos={mousePos} />
+          <Sphere position={[-7, -10, 6]} scale={1.8} color="#00aaff" mousePos={mousePos} />
+          <Sphere position={[5 -1, 3]} scale={2.3} color="#ff4444" mousePos={mousePos} />
+
+        </Canvas>
+      </div>
+      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen text-center">
+        <h1 ref={titleRef} className="text-9xl font-bold tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-[#5ce2d4] to-[#263836] drop-shadow-3xl">
+          JU VERSE
+        </h1>
+        <p className="mt-4 text-lg text-gray-300 max-w-xl animate-fadeIn">
+          Explore the future of digital interaction with Web3 technology and immersive experiences.
+        </p>
+
+        <button className="ui-btn bg-[#ffffff3e] mt-8 border border-[#ffff] rounded-md bg-teal-500/10">
+          <span className="text-green-100">
+            Enter the future
+          </span>
+        </button>
       </div>
     </div>
   );

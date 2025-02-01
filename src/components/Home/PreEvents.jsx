@@ -54,15 +54,15 @@ function PreEvents() {
 
   return (
     <section id="preevents" className="pb-10 py-32 min-h-screen">
-      <div className="container mx-auto px-4">
-        <div className="w-full mb-16 flex justify-between items-end">
-          <h1 className="text-5xl font-bold tracking-wider capitalize opacity-50">
+<div className="container mx-auto px-4 sm:px-6 ">
+<div className="w-full mb-16 flex flex-col sm:flex-row justify-between items-end gap-8 sm:gap-0">
+          <h1 className="text-5xl font-bold tracking-wider capitalize opacity-50  w-[100%]">
             Ju Verse past events.
           </h1>
           <p
             onClick={handleShowMoreClick}
             style={{ cursor: 'pointer', }}
-            className='opacity-50'
+            className='opacity-50  w-[50%] flex justify-end'
           >
             Show more
           </p>
@@ -77,7 +77,7 @@ function PreEvents() {
         </Marquee>
       </div>
 
-      <div className="mt-10 min-h-[10vh] px-20 flex justify-between items-center">
+      <div className="mt-10 min-h-[10vh] px-6 sm:px-20 flex flex-col sm:flex-row justify-between items-center">
         <h2 className='text-[#4db6ac95]'>
           Ju Verse has hosted multiple high-level past events. <br /> Here are some great events organized by them.
         </h2>

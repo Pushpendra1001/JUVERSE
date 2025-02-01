@@ -12,14 +12,14 @@ function Home() {
     <>
       <main className="relative min-h-screen overflow-x-hidden z-10">
         <BackgroundGradient />
-        <div className="relative z-10  bg-black">
+        <div className="relative z-10  bg-[#050505]">
           <Hero />
           <Aboutus />
           <Events />
           <PreEvents />
         </div>
       </main>
-      <div className="z-0 min-h-[50vh] mt-[100px] bg-[#161616]">
+      <div className="z-0 h-[70vh]  bg-[#161616]">
         <Footer />
       </div>
 
