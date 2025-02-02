@@ -16,7 +16,7 @@ function Home() {
           <Hero />
           <Aboutus />
           <Events />
-          {/* <PreEvents /> */}
+          <PreEvents />
         </div>
       </main>
       <div className="z-0 h-[70vh]  bg-[#161616]">

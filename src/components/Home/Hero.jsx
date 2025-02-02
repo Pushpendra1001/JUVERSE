@@ -124,9 +124,11 @@
 
 
 
+
+
 import { useEffect, useRef, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { OrbitControls, Stars, useTexture } from "@react-three/drei";
+import { OrbitControls, Stars, useTexture, useProgress } from "@react-three/drei";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import * as THREE from "three";
@@ -138,23 +140,47 @@ import Nav from "./Nav";
 // Register GSAP plugin
 gsap.registerPlugin(ScrollTrigger);
 
-// Import multiple textures
+// Import textures
 import texture1 from "../../images/img6.jpg";
 import texture2 from "../../images/img2.jpg";
 import texture3 from "../../images/img3.jpg";
 import texture4 from "../../images/img8.jpg";
 import texture5 from "../../images/img5.jpg";
 
-const textures = [texture1, texture2, texture3, texture4, texture5]; // Store textures in an array
+const textures = [texture1, texture2, texture3, texture4, texture5];
 
+// Loader Component
+function Loader({ onLoaded }) {
+  const { progress } = useProgress();
+  const [isMinTimePassed, setIsMinTimePassed] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsMinTimePassed(true), 3000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    if (progress === 100 && isMinTimePassed) {
+      onLoaded();
+    }
+  }, [progress, isMinTimePassed, onLoaded]);
+
+  return (
+    <div className="fixed inset-0 flex flex-col items-center justify-center bg-black text-white z-[999] transition-opacity duration-500">
+      <div className="w-16 h-16 border-4 border-gray-500 border-t-transparent rounded-full animate-spin"></div>
+      <p className="mt-4">Loading... </p>
+    </div>
+  );
+}
+
+// Sphere Component
 function Sphere({ position, scale = 2, mousePos, texture }) {
   const sphereRef = useRef();
-  const sphereTexture = useTexture(texture); // Load specific texture
+  const sphereTexture = useTexture(texture);
 
   useFrame(() => {
     if (sphereRef.current) {
       sphereRef.current.rotation.y += 0.01;
-
       const offsetX = (mousePos.x - 0.5) * -2;
       const offsetY = (mousePos.y - 0.5) * -2;
       gsap.to(sphereRef.current.position, {
@@ -174,11 +200,13 @@ function Sphere({ position, scale = 2, mousePos, texture }) {
   );
 }
 
+// Hero Component
 export default function Hero() {
   const heroRef = useRef(null);
   const titleRef = useRef(null);
   const [mousePos, setMousePos] = useState({ x: 0.5, y: 0.5 });
   const [isHovered, setIsHovered] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     gsap.fromTo(
@@ -200,6 +228,7 @@ export default function Hero() {
 
   return (
     <div ref={heroRef} className="min-h-screen relative overflow-hidden bg-black text-white">
+      {!isLoaded && <Loader onLoaded={() => setIsLoaded(true)} />}
       <Nav />
       <div className="absolute inset-0 z-0">
         <Canvas camera={{ position: [0, 0, 10], fov: 60 }}>
@@ -209,7 +238,6 @@ export default function Hero() {
           <pointLight position={[-5, -10, 5]} intensity={2} />
           <Stars radius={100} depth={10} count={7000} factor={4} fade speed={1} />
 
-          {/* Sphere Components with Different Textures */}
           {[
             { position: [0, 0, 0], scale: 2.5, texture: textures[0] },
             { position: [-4, 2, -4], scale: 1.5, texture: textures[1] },
@@ -228,7 +256,6 @@ export default function Hero() {
         <p className="mt-4 text-lg text-gray-300 max-w-xl animate-fadeIn">
           Explore the future of digital interaction with Web3 technology and immersive experiences.
         </p>
-
         <button className="ui-btn bg-[#ffffff3e] mt-8 border border-[#ffff] rounded-md bg-teal-500/10">
           <span className="text-green-100">Enter the future</span>
         </button>
