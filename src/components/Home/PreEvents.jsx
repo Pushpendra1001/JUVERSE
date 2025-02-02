@@ -77,7 +77,7 @@ function PreEvents() {
         </Marquee>
       </div>
 
-      <div className="mt-10 min-h-[10vh] px-6 sm:px-20 flex flex-col sm:flex-row justify-between items-center">
+      <div className="mt-10 min-h-[10vh] px-6 sm:px-20 flex flex-col sm:flex-row justify-between items-center gap-10 sm:gap-0">
         <h2 className='text-[#4db6ac95]'>
           Ju Verse has hosted multiple high-level past events. <br /> Here are some great events organized by them.
         </h2>

@@ -8,7 +8,7 @@ function Detailevent() {
   return (
     <>
       <div className='min-h-[100vh] relative bg-black z-10'>
-        <h2 className="text-7xl font-bold mt-16 tracking-wider text-center capitalize "
+        <h2 className="text-7xl font-bold mt-16 mb-16 tracking-wider text-center capitalize "
           style={{ WebkitTextStroke: "2px white", color: "transparent" }}
         > Ju verse  events</h2>
         <Events />
