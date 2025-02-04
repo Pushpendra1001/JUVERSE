@@ -7,7 +7,10 @@ export default defineConfig({
     react(),
     glsl()
   ],
+  assetsInclude: ['**/*.glb'],
   optimizeDeps: {
     exclude: ['lucide-react']
   }
 });
+
+
