@@ -11,7 +11,6 @@ function JuverseModel({ scale = 1 }) {
   const modelRef = useRef();
   
   useEffect(() => {
-    // Infinite rotation animation
     gsap.to(modelRef.current.rotation, {
       y: Math.PI * 2,
       duration: 8,
@@ -32,7 +31,6 @@ export default function Hero() {
     const ctx = gsap.context(() => {
       const chars = gsap.utils.toArray('.char');
       gsap.set(chars, { y: 100, opacity: 0 });
-      
       gsap.to(chars, {
         y: 0,
         opacity: 1,
@@ -46,40 +44,42 @@ export default function Hero() {
   }, []);
 
   return (
-    <div ref={heroRef} className="min-h-screen relative overflow-hidden">
-      <Nav/>
-      
-      <div className="h-[100vh] w-full ">
-        <Canvas
-          flat
-          camera={{
-            position: [0, 0, 13],
-            fov: 65
-          }}
-          className="w-full h-full"
-        >
-          <OrbitControls
-            enableZoom={false}
-            enablePan={false}
-            autoRotate={false}
-            maxPolarAngle={Math.PI / 2}
-            minPolarAngle={Math.PI / 2}
-          />
-          <ambientLight intensity={1.9} />
-          <directionalLight position={[1, 10, 10]} intensity={0.5} />
-          <JuverseModel scale={5} />
-        </Canvas>
-      </div>
-
-      <div ref={textRef} className='select-none w-full h-fit bg-blend-multiply backdrop-blur-sm absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-slate-400'>
-        {/* <h1 className='text-8xl capitalize font-bold tracking-tighter leading-none text-center drop-shadow-2xl'>
-          {'JUVERSE'.split('').map((char, index) => (
-            <span key={index} className="char inline-block">
-              {char}
-            </span>
-          ))}
-        </h1> */}
-      </div>
+    <div ref={heroRef} className="min-h-screen relative overflow-hidden flex flex-col">
+    <Nav/>
+    
+    {/* Our JuVerse 3D Model */}
+    <div className="h-[75vh] w-full pt-16">
+      <Canvas
+        flat
+        camera={{
+          position: [0, 0, 13],
+          fov: 65
+        }}
+        className="w-full h-full"
+      >
+        <OrbitControls
+          enableZoom={false}
+          enablePan={false}
+          autoRotate={false}
+          maxPolarAngle={Math.PI / 2}
+          minPolarAngle={Math.PI / 2}
+        />
+        <ambientLight intensity={1.9} />
+        <directionalLight position={[1, 10, 10]} intensity={0.5} />
+        <JuverseModel scale={6} />
+      </Canvas>
     </div>
+  
+    {/* Text Section - Now positioned below */}
+    <div ref={textRef} className='select-none w-full mt-8 text-slate-400'>
+      <h1 className='text-8xl capitalize font-bold tracking-tighter leading-none text-center drop-shadow-2xl'>
+        {'JUVERSE'.split('').map((char, index) => (
+          <span key={index} className="char inline-block">
+            {char}
+          </span>
+        ))}
+      </h1>
+    </div>
+  </div>
   );
 }
