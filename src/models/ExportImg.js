@@ -4,7 +4,6 @@ import nft from '../images/nft.jpg';
 import web3 from '../images/web3.jpg';
 import water from '../images/water.jpg';
 import ring from '../images/image3.png';
-import juverse from '../images/juverse.glb';
 
 
 export const images = {
@@ -13,6 +12,5 @@ export const images = {
     nft,
     web3,
     water,
-    ring,
-    juverse
+    ring
 };
