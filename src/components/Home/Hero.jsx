@@ -54,7 +54,7 @@ export default function Hero() {
     >
       <Nav/>
     
-      {/* 3D Model Container - Responsive Sizing */}
+      {/* 3D Model Container  */}
       <div className="w-full h-[70vh] md:h-[65vh] lg:h-[75vh] px-4 flex justify-center items-center">
         <div className="w-full max-w-4xl aspect-square pt-16">
           <Canvas
@@ -94,3 +94,6 @@ export default function Hero() {
 }
 
 useGLTF.preload(images.juverse);
+
+
+// check
