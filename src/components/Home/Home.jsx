@@ -2,9 +2,10 @@ import React from 'react';
 import PreEvents from './PreEvents';
 import Events from './Events';
 import Aboutus from './AboutUs';
-import Hero from './Hero';
+// import Hero from './Hero';
 import BackgroundGradient from './BackgroundGradient';
 import Footer from '../Footer';
+import Newhero from './Newhero';
 
 function Home() {
   
@@ -13,7 +14,8 @@ function Home() {
       <main className="relative min-h-screen overflow-x-hidden z-10">
         <BackgroundGradient />
         <div className="relative z-10  bg-[#050505]">
-          <Hero />
+          {/* <Hero /> */}
+          <Newhero/>
           <Aboutus />
           <Events />
           <PreEvents />
