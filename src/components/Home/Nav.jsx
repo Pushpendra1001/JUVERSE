@@ -59,9 +59,7 @@ const SimpleFloatingNav = () => {
             <a href="#about" onClick={(e) => handleSmoothScroll(e, "#about")}>
               <NavLink>About</NavLink>
             </a>
-            <a href="#team" onClick={(e) => handleSmoothScroll(e, "#team")}>
-              <NavLink>Team</NavLink>
-            </a>
+   
           </>
         ) : (
           <>
@@ -71,11 +69,12 @@ const SimpleFloatingNav = () => {
             <Link to="/#about">
               <NavLink>About</NavLink>
             </Link>
-            <Link to="/#team">
-              <NavLink>Team</NavLink>
-            </Link>
+  
           </>
         )}
+        <Link to="/team">
+          <NavLink>Team</NavLink>
+        </Link>
         <Link to="/projects">
           <NavLink>Projects</NavLink>
         </Link>

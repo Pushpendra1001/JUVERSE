@@ -24,7 +24,7 @@ export default function BackgroundGradient() {
   }, []);
 
   return (
-    <div className="fixed inset-0 pointer-events-none overflow-hidden -z-10">
+    <div className="fixed inset-0 pointer-events-none overflow-hidden z-[50]">
       {[...Array(6)].map((_, i) => (
         <div
           key={i}

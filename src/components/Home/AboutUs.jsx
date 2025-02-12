@@ -28,9 +28,6 @@ export default function AboutUs() {
     <section id="about-us" className="py-32 text-white relative">
       <div className="container mx-auto px-4">
         <h2 className="text-6xl font-bold mb-16 tracking-wider text-center">About Us</h2>
-        {/* <h2 className="text-6xl font-bold mb-16 tracking-wider text-center "
-          style={{ WebkitTextStroke: "2px white", color: "transparent"  }}
-        >About Us</h2> */}
         <p className="text-xl mb-24 max-w-4xl mx-auto text-center leading-relaxed tracking-wide text-gray-300">
           JU Verse is your gateway to Web3.0 knowledge, fostering a learning and building
           environment with sessions and workshops for aspiring individuals to connect,
