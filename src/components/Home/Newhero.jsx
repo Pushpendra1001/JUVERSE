@@ -74,7 +74,7 @@ export const Newhero = () => {
             />
             
             {/* Image Container */}
-            <div className="absolute top-[55%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[10]">
+            <div className="absolute top-[55%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[10] w-full sm:w-auto">
                 <img 
                     key={currentImage} 
                     ref={imageRef} 
@@ -93,7 +93,7 @@ const FlipLink = ({ children, href, textRef }) => {
     return (
         <a
             href={href}
-            className="relative z-0 block whitespace-nowrap text-6xl font-black uppercase sm:text-8xl md:text-9xl lg:text-[18rem]"
+            className="relative z-0 block whitespace-nowrap text-8xl font-black uppercase sm:text-8xl md:text-9xl lg:text-[18rem]"
             style={{ lineHeight: 0.75 }}
         >
             <span ref={textRef} className="relative inline-flex">

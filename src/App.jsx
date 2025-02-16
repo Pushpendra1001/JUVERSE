@@ -12,8 +12,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/detailevent" element={<DetailEvent />} />
 
-        {/* <Route path="/singleevent/:id" element={<SingleEvent />} /> */}
-        <Route path="/Singlevent" element={<Singlevent />} />
+        <Route path="/Singlevent/:eventName" element={<Singlevent />} />
         <Route path="/Team" element={<Team />} />
 
 

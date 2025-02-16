@@ -72,7 +72,7 @@ const SimpleFloatingNav = () => {
   
           </>
         )}
-        <Link to="/team">
+        <Link to="/Team">
           <NavLink>Team</NavLink>
         </Link>
         <Link to="/projects">

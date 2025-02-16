@@ -1,84 +1,123 @@
+
+
 import React from "react";
+import { useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 
-const marqueeImages = [
-    "https://i.pinimg.com/736x/b3/13/4d/b3134d9e7b00843a7642c79403f03995.jpg",
-    "https://i.pinimg.com/736x/18/53/ff/1853ffa63c8f98745918e3ee18341e4f.jpg",
-    "https://i.pinimg.com/736x/21/df/68/21df68828daab6f4c4388a9e971f82ee.jpg",
-    "https://i.pinimg.com/736x/03/38/65/03386523ad9c2384e512303d088812f8.jpg",
-    "https://i.pinimg.com/736x/c8/d5/ab/c8d5ab256d03049a7ddda7c8ce57f956.jpg",
-    "https://i.pinimg.com/736x/b3/13/4d/b3134d9e7b00843a7642c79403f03995.jpg",
-    "https://i.pinimg.com/736x/18/53/ff/1853ffa63c8f98745918e3ee18341e4f.jpg",
-    "https://i.pinimg.com/736x/21/df/68/21df68828daab6f4c4388a9e971f82ee.jpg",
-    "https://i.pinimg.com/736x/03/38/65/03386523ad9c2384e512303d088812f8.jpg",
-    "https://i.pinimg.com/736x/c8/d5/ab/c8d5ab256d03049a7ddda7c8ce57f956.jpg",
-    "https://i.pinimg.com/736x/b3/13/4d/b3134d9e7b00843a7642c79403f03995.jpg",
-    "https://i.pinimg.com/736x/18/53/ff/1853ffa63c8f98745918e3ee18341e4f.jpg",
-    "https://i.pinimg.com/736x/21/df/68/21df68828daab6f4c4388a9e971f82ee.jpg",
-    "https://i.pinimg.com/736x/03/38/65/03386523ad9c2384e512303d088812f8.jpg",
-    "https://i.pinimg.com/736x/c8/d5/ab/c8d5ab256d03049a7ddda7c8ce57f956.jpg",
-];
-
-// Motion Variants for Seamless Scrolling
-const marqueeVariants = (direction) => ({
+const marqueeVariantsUp = {
     animate: {
-        y: direction === "up" ? ["0%", "-100%"] : ["-100%", "0%"],
+        y: ["0%", "-100%"],
         transition: {
-            duration: 30, // Adjusted speed for smoothness
-            ease: "linear",
             repeat: Infinity,
-        },
-    },
-});
+            repeatType: "loop",
+            duration: 20,
+            ease: "linear"
+        }
+    }
+};
 
-function Singlevent() {
+const marqueeVariantsDown = {
+    animate: {
+        y: ["-100%", "0%"],
+        transition: {
+            repeat: Infinity,
+            repeatType: "loop",
+            duration: 20,
+            ease: "linear"
+        }
+    }
+};
+
+export default function Singlevent() {
+    const location = useLocation();
+    const selectedEvent = location.state?.event; // Get event from navigation state
+
+    if (!selectedEvent) {
+        return <div className="text-white p-6">Event not found.</div>;
+    }
+
     return (
-        <div className="min-h-screen w-full p-6 relative bg-[#111] text-white">
+        <div className="max-h-[200vh] sm:max-h-screen w-full p-4 sm:p-6 bg-[#111] text-white relative overflow-hidden">
             {/* Top Banner */}
-            <div className="border border-[#595959] h-[20vh] relative rounded-2xl overflow-hidden z-40 bg-[#6868687d]"></div>
+            <div className="border border-[#595959] h-[20vh] rounded-2xl overflow-hidden bg-[#6868687d]">
+                <img
+                    src={selectedEvent.photos[0]}
+                    alt="Event Banner"
+                    style={{ objectPosition: "50% 20%", }} // 50% for horizontal, 10% for vertical
+                    className="w-full h-full object-cover object-top-[10%]  "
+                />
+            </div>
 
-            <div className="flex min-h-[75vh] mt-5 mr-4">
-                <div className="w-[65%]   p-3">
-                    <h1 className="text-3xl">SGJHFC BCKELK;VNC LBA;SDC</h1>
-                   <div className="flex gap-4"> <h5>jsdhkv </h5> <h5>ghjhwd</h5></div>
-                   <p className="mt-3">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Praesentium animi velit laudantium quo odio, doloribus neque magnam culpa necessitatibus officiis ratione, atque corporis possimus exercitationem, facilis dolorum deserunt iusto similique.
-                   Eaque eos tempora, doloremque eligendi laboriosam, quaerat sunt ullam exercitationem cum dolores atque ipsa facilis quo nemo ducimus quasi tenetur. Molestiae sed alias officiis iusto laboriosam, iure eveniet veniam delectus.
-                   Sed reiciendis ratione soluta et rem! Suscipit error provident obcaecati eaque earum, eius libero fugiat ut consectetur vero! A exercitationem, corporis asperiores quia eius sunt minus aspernatur ut? Reiciendis, eum!
-                   Odit a illo fuga inventore, optio veniam alias adipisci, sapiente iste, accusantium maiores sunt tempora quidem facere commodi. Deleniti fugit accusamus eos saepe quisquam, laboriosam maxime ipsam dolore nisi sapiente?
-                   Quas omnis temporibus similique esse inventore alias fugiat labore voluptatem, deserunt, nesciunt nulla ab minima at molestias vero eos ipsam incidunt iste. Perferendis odit officia repellat? Et dicta repudiandae odit.
-                   Placeat, adipisci. Optio animi illum cumque ab temporibus? Est perspiciatis voluptas temporibus autem ipsa odit laudantium, laborum labore voluptate sapiente. Quaerat, beatae eligendi non distinctio eos quia quisquam fugit quasi.
-                   Nihil veritatis, consequatur voluptatem quos aperiam autem unde, non quia veniam omnis quod nam, provident quisquam. Sunt rerum dolorem debitis nulla modi, quod labore, neque earum provident voluptatem odio pariatur.</p>
+            {/* Main Content */}
+           
+            <a
+                href="/" className="fixed top-[9%] right-20">
+                <button class="ui-btn rounded-md bg-teal-500/10">
+                    <span className='text-green-100 '>
+                         Back to website
+                    </span>
+                </button>
+            </a>
 
-                   <p className="mt-4">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Officia, incidunt, adipisci quod temporibus aliquid accusantium delectus enim nulla qui nihil, sequi necessitatibus deleniti consectetur modi? Quod accusantium saepe porro est?</p>
-                   <p className="mt-4">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Officia, incidunt, adipisci quod temporibus aliquid accusantium delectus enim nulla qui nihil, sequi necessitatibus deleniti consectetur modi? Quod accusantium saepe porro est?</p>
+
+
+            <div className="flex flex-col sm:flex-row min-h-[75vh] mt-5 gap-6">
+                {/* Left Content */}
+                <div className="sm:w-[65%] p-3">
+                    <h1 className="text-2xl sm:text-3xl font-bold">{selectedEvent.eventName}</h1>
+                    <div className="flex gap-4 mt-2 text-xs sm:text-base">
+                        <h5>{new Date(selectedEvent.eventDate).toDateString()}</h5>
+                    </div>
+                    <p className="mt-3 text-xs sm:text-base leading-relaxed">{selectedEvent.description}</p>
+
+                    {/* Guest Section */}
+                    {selectedEvent.guests && (
+                        <div className="mt-5">
+                            <h3 className="text-lg sm:text-xl font-semibold">Guests:</h3>
+                            <ul className="mt-2 space-y-2">
+                                {selectedEvent.guests.map((guest, index) => (
+                                    <li key={index} className="text-sm sm:text-base">
+                                        <span className="font-semibold">{guest.name}</span> - {guest.designation}, {guest.organization}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
                 </div>
 
                 {/* Right Side Marquee Section */}
-                <div className="min-h-[100vh] w-[35%] absolute top-0 right-0 flex p-5 gap-5">
-                    {/* Scrolling Up (Left Side) */}
-                    <div className="w-[50%] overflow-hidden relative">
-                        <motion.div 
-                            className="absolute flex flex-col h-[200vh]" // Ensures smooth continuous scrolling
-                            variants={marqueeVariants("up")} 
+                <div className="sm:w-[35%] w-full flex gap-2 sm:gap-4 p-3 sm:p-5 relative">
+                    {/* Marquee Wrapper */}
+                    <div className="flex w-full gap-2 overflow-hidden">
+                        {/* Scrolling Up */}
+                        <motion.div
+                            className="w-1/2 flex flex-col h-[200vh]"
+                            variants={marqueeVariantsUp}
                             animate="animate"
                         >
-                            {/* Duplicate images for seamless loop */}
-                            {[...marqueeImages, ...marqueeImages].map((image, index) => (
-                                <img key={index} src={image} alt={`Marquee ${index}`} className="w-full h-[33vh] object-cover rounded-lg my-4 border border-[#5a5a5acd]" />
+                            {selectedEvent.photos?.map((photo, index) => (
+                                <img
+                                    key={index}
+                                    src={photo}
+                                    alt={`Event Photo ${index}`}
+                                    className="w-full h-[20vh] sm:h-[33vh] object-cover rounded-lg my-2 border border-[#5a5a5a]"
+                                />
                             ))}
                         </motion.div>
-                    </div>
 
-                    {/* Scrolling Down (Right Side) */}
-                    <div className="w-[50%] overflow-hidden relative">
-                        <motion.div 
-                            className="absolute flex flex-col h-[200vh]" // Ensures smooth continuous scrolling
-                            variants={marqueeVariants("down")} 
+                        {/* Scrolling Down */}
+                        <motion.div
+                            className="w-1/2 flex flex-col h-[200vh]"
+                            variants={marqueeVariantsDown}
                             animate="animate"
                         >
-                            {/* Duplicate images for seamless loop */}
-                            {[...marqueeImages, ...marqueeImages].map((image, index) => (
-                                <img key={index} src={image} alt={`Marquee ${index}`} className="w-full h-[33vh] object-cover rounded-lg my-4" />
+                            {selectedEvent.photos?.map((photo, index) => (
+                                <img
+                                    key={index}
+                                    src={photo}
+                                    alt={`Event Photo ${index}`}
+                                    className="w-full h-[20vh] sm:h-[33vh] object-cover rounded-lg my-2 border border-[#5a5a5a]"
+                                />
                             ))}
                         </motion.div>
                     </div>
@@ -87,5 +126,3 @@ function Singlevent() {
         </div>
     );
 }
-
-export default Singlevent;
