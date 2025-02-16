@@ -2,7 +2,7 @@ import React from 'react';
 
 function Footer() {
   return (
-<footer className="max-h-[70vh] bg-[#161818] fixed bottom-0 left-0 w-full text-white py-16 px-4 md:px-16">
+<footer className="max-h-[70vh]  bg-[#161818] fixed bottom-0 left-0 w-full text-white py-16 px-4 md:px-16">
       <h1 className='font-black text-[4rem] sm:text-[4rem] md:text-[6rem] lg:text-[12rem] leading-none'>JU VERSE.</h1>
       <div className="min-h-[20vh] flex items-center gap-5 mt-16 ">
 
