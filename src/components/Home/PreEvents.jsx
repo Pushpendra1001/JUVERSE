@@ -96,7 +96,7 @@ import React, { useState } from "react";
 import Marquee from "react-fast-marquee";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
-import eventData from "../../../public/Data.json"; // Importing JSON directly
+import eventData from "../../Data.json"; // Importing JSON directly
 
 function EventCard({ event }) {
   const [isHovered, setIsHovered] = useState(false);
@@ -117,7 +117,7 @@ function EventCard({ event }) {
       <div
         className="absolute inset-0 bg-cover bg-center transition-opacity duration-300"
         style={{
-          backgroundImage: `url(${event.photos.length > 0 ? event.photos[0] : "/default-image.jpg"})`,
+          backgroundImage: `url(${event.photos.length > 0 ? event.photos[1] : "/default-image.jpg"})`,
           opacity: isHovered ? 0 : 1,
         }}
       ></div>

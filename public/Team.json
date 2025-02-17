@@ -1,50 +1,44 @@
 {
-    "Community Lead": [
-      { "name": "Kashish Goyal", "image": "/images/kashish_goyal.jpg" }
-    ],
-    "Operations Team": [
-      { "name": "Kunal Mathur", "image": "/images/kunal_mathur.jpg" },
-      { "name": "Aryan Jain", "image": "/images/aryan_jain.jpg" },
-      { "name": "Bhavya Sharma", "image": "/images/bhavya_sharma.jpg" },
-      { "name": "Harman Singh Khurana", "image": "/images/harman_singh_khurana.jpg" },
-      { "name": "Aradhya Gupta", "image": "/images/aradhya_gupta.jpg" },
-      { "name": "Hitesh Bidawatka", "image": "/images/hitesh_bidawatka.jpg" },
-      { "name": "Paridhhi Chauhan", "image": "/images/paridhhi_chauhan.jpg" },
-      { "name": "Arya Geetesh", "image": "/images/arya_geetesh.jpg" },
-      { "name": "Nishtha Shukla", "image": "/images/nishtha_shukla.jpg" },
-      { "name": "Niyati Prajapati", "image": "/images/niyati_prajapati.jpg" }
-    ],
-    "Technical Lead": [
-        { "name": "Arpit Biyani", "image": "/images/arpit_biyani.jpg" },
-        { "name": "Pushpendra Baswal", "image": "/images/pushpendra_baswal.jpg" }
-      ],
-      "Technical Team": [
-          { "name": "Devansh Purohit", "image": "/images/devansh_purohit.jpg" },
-  
-        { "name": "Suresh", "image": "/images/suresh.jpg" },
-        { "name": "Dhairya", "image": "/images/dhairya.jpg" },
-        { "name": "Divyansh Raj", "image": "/images/divyansh_raj.jpg" }
-      ],
-    "Media Lead": [
-      { "name": "Suryansh Rathore", "image": "/images/suryansh_rathore.jpg" },
-      { "name": "Shaivya Agarwal", "image": "/images/shaivya_agarwal.jpg" }
-    ],
-    "Media Team": [
-      { "name": "Priyanshi Kanawat", "image": "/images/priyanshi_kanawat.jpg" },
-      { "name": "Naman Kankaria", "image": "/images/naman_kankaria.jpg" },
-      { "name": "Aditya Soni", "image": "/images/aditya_soni.jpg" },
-      { "name": "Priyal Ajmera", "image": "/images/priyal_ajmera.jpg" },
-      { "name": "Kavya Gupta", "image": "/images/kavya_gupta.jpg" },
-      { "name": "Kunal Kapil", "image": "/images/kunal_kapil.jpg" },
-      { "name": "Harsh Lakhani", "image": "/images/harsh_lakhani.jpg" },
-      { "name": "Vishal Bhatia", "image": "/images/vishal_bhatia.jpg" },
-      { "name": "Yashasvi", "image": "/images/yashasvi.jpg" },
-      { "name": "Kanishk Tandan", "image": "/images/kanishk_tandan.jpg" },
-      { "name": "Dakshita", "image": "/images/dakshita.jpg" },
-      { "name": "Saileela Ohineni", "image": "/images/saileela_ohineni.jpg" },
-      { "name": "Arzoo Singh", "image": "/images/arzoo_singh.jpg" },
-      { "name": "Naina Sharma", "image": "/images/naina_sharma.jpg" },
-      { "name": "Arya Pareek", "image": "/images/arya_pareek.jpg" }
-    ]
-  }
-  
+  "Community Lead": [
+    { "name": "Kashish Goyal", "image": "/images/blockchain.jpg", "role": "Community Lead" }
+  ],
+  "Operations Team": [
+    { "name": "Kunal Mathur", "image": "/images/kunal_mathur.jpg", "role": "Operations Team Member" },
+    { "name": "Aryan Jain", "image": "/images/aryan_jain.jpg", "role": "Operations Team Member" },
+    { "name": "Bhavya Sharma", "image": "/images/bhavya_sharma.jpg", "role": "Operations Team Member" },
+    { "name": "Harman Singh Khurana", "image": "/images/harman_singh_khurana.jpg", "role": "Operations Team Member" },
+    { "name": "Aradhya Gupta", "image": "/images/aradhya_gupta.jpg", "role": "Operations Team Member" },
+    { "name": "Hitesh Bidawatka", "image": "/images/hitesh_bidawatka.jpg", "role": "Operations Team Member" },
+    { "name": "Paridhhi Chauhan", "image": "/images/paridhhi_chauhan.jpg", "role": "Operations Team Member" },
+    { "name": "Arya Geetesh", "image": "/images/arya_geetesh.jpg", "role": "Operations Team Member" },
+    { "name": "Nishtha Shukla", "image": "/images/nishtha_shukla.jpg", "role": "Operations Team Member" },
+    { "name": "Niyati Prajapati", "image": "/images/niyati_prajapati.jpg", "role": "Operations Team Member" }
+  ],
+  "Technical Team": [
+    { "name": "Pushpendra Baswal", "image": "/images/pushpendra_baswal.jpg", "role": "Technical Team Lead" },
+    { "name": "Arpit Biyani", "image": "/images/arpit_biyani.jpg", "role": "Technical Team Lead" },
+    { "name": "Devansh Purohit", "image": "/images/devansh_purohit.jpg", "role": "Technical Team Member" },
+    { "name": "Suresh", "image": "/images/suresh.jpg", "role": "Technical Team Member" },
+    { "name": "Dhairya", "image": "/images/dhairya.jpg", "role": "Technical Team Member" },
+    { "name": "Divyansh Raj", "image": "/images/divyansh_raj.jpg", "role": "Technical Team Member" }
+  ],
+  "Media Team": [
+    { "name": "Suryansh Rathore", "image": "/images/suryansh_rathore.jpg", "role": "Media Team Lead" },
+    { "name": "Shaivya Agarwal", "image": "/images/shaivya_agarwal.jpg", "role": "Media Team Lead" },
+    { "name": "Priyanshi Kanawat", "image": "/images/priyanshi_kanawat.jpg", "role": "Media Team Member" },
+    { "name": "Naman Kankaria", "image": "/images/naman_kankaria.jpg", "role": "Media Team Member" },
+    { "name": "Aditya Soni", "image": "/images/aditya_soni.jpg", "role": "Media Team Member" },
+    { "name": "Priyal Ajmera", "image": "/images/priyal_ajmera.jpg", "role": "Media Team Member" },
+    { "name": "Kavya Gupta", "image": "/images/kavya_gupta.jpg", "role": "Media Team Member" },
+    { "name": "Kunal Kapil", "image": "/images/kunal_kapil.jpg", "role": "Media Team Member" },
+    { "name": "Harsh Lakhani", "image": "/images/harsh_lakhani.jpg", "role": "Media Team Member" },
+    { "name": "Vishal Bhatia", "image": "/images/vishal_bhatia.jpg", "role": "Media Team Member" },
+    { "name": "Yashasvi", "image": "/images/yashasvi.jpg", "role": "Media Team Member" },
+    { "name": "Kanishk Tandan", "image": "/images/kanishk_tandan.jpg", "role": "Media Team Member" },
+    { "name": "Dakshita", "image": "/images/dakshita.jpg", "role": "Media Team Member" },
+    { "name": "Saileela Ohineni", "image": "/images/saileela_ohineni.jpg", "role": "Media Team Member" },
+    { "name": "Arzoo Singh", "image": "/images/arzoo_singh.jpg", "role": "Media Team Member" },
+    { "name": "Naina Sharma", "image": "/images/naina_sharma.jpg", "role": "Media Team Member" },
+    { "name": "Arya Pareek", "image": "/images/arya_pareek.jpg", "role": "Media Team Member" }
+  ]
+}
