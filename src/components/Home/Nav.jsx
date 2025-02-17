@@ -27,11 +27,17 @@ const SimpleFloatingNav = () => {
 
   const handleSmoothScroll = (e, targetId) => {
     e.preventDefault();
+    if (location.pathname !== '/') {
+      window.location.href = `/${targetId}`;
+      return;
+    }
+
     const targetElement = document.querySelector(targetId);
     if (targetElement) {
-      window.scrollTo({
-        top: targetElement.offsetTop - 50, // Adjust offset for navbar height
-        behavior: "smooth",
+      targetElement.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+        inline: 'nearest'
       });
     }
   };
@@ -56,31 +62,26 @@ const SimpleFloatingNav = () => {
             <a href="#home" onClick={(e) => handleSmoothScroll(e, "#home")}>
               <NavLink>Home</NavLink>
             </a>
-            <a href="#about" onClick={(e) => handleSmoothScroll(e, "#about")}>
-              <NavLink>About</NavLink>
+            <a href="#about-us" onClick={(e) => handleSmoothScroll(e, "#about-us")}>
+                <NavLink>About</NavLink>
             </a>
-   
           </>
         ) : (
           <>
             <Link to="/#home">
               <NavLink>Home</NavLink>
             </Link>
-            <Link to="/#about">
-              <NavLink>About</NavLink>
+            <Link to="#about-us">
+                <NavLink>About</NavLink>
             </Link>
-  
           </>
         )}
         <Link to="/Team">
           <NavLink>Team</NavLink>
         </Link>
-        <Link to="/projects">
-          <NavLink>Projects</NavLink>
-        </Link>
-        <Link to="/detailevent">
+        <a href="#past-events" onClick={(e) => handleSmoothScroll(e, "#past-events")}>
           <NavLink>Events</NavLink>
-        </Link>
+        </a>
       </div>
 
       {/* Desktop Join Button */}
@@ -126,27 +127,22 @@ const JoinButton = ({ handleSmoothScroll }) => {
 const MobileNav = ({ handleSmoothScroll, setMenuOpen }) => {
   return (
     <div className="absolute top-16 left-0 w-full bg-neutral-900 border-t border-neutral-700 p-4 flex flex-col gap-4 sm:hidden">
-      <a href="#home" onClick={(e) => handleSmoothScroll(e, "#home")}>
-        <NavLink>Home</NavLink>
-      </a>
-      <a href="#about" onClick={(e) => handleSmoothScroll(e, "#about")}>
-        <NavLink>About</NavLink>
-      </a>
-      <a href="#team" onClick={(e) => handleSmoothScroll(e, "#team")}>
-        <NavLink>Team</NavLink>
-      </a>
-      <Link to="/projects">
-        <NavLink>Projects</NavLink>
-      </Link>
-      <Link to="/detailevent">
-        <NavLink>Events</NavLink>
-      </Link>
-
-      {/* Join Button for Mobile */}
-      <div className="mt-4">
-        <JoinButton handleSmoothScroll={handleSmoothScroll} />
-      </div>
+    <a href="#home" onClick={(e) => { handleSmoothScroll(e, "#home"); setMenuOpen(false); }}>
+      <NavLink>Home</NavLink>
+    </a>
+    <a href="#about-us" onClick={(e) => { handleSmoothScroll(e, "#about-us"); setMenuOpen(false); }}>
+                <NavLink>About</NavLink>
+            </a>
+    <Link to="/Team">
+      <NavLink>Team</NavLink>
+    </Link>
+    <a href="#past-events" onClick={(e) => { handleSmoothScroll(e, "#past-events"); setMenuOpen(false); }}>
+      <NavLink>Events</NavLink>
+    </a>
+    <div className="mt-4">
+      <JoinButton handleSmoothScroll={handleSmoothScroll} />
     </div>
+  </div>
   );
 };
 

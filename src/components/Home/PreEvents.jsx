@@ -108,6 +108,7 @@ function EventCard({ event }) {
 
   return (
     <div
+      id="past-events"
       className="relative min-h-[55vh] min-w-[400px] mx-5 shrink-0 rounded-2xl overflow-hidden border-2 border-[#808080] cursor-pointer"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
