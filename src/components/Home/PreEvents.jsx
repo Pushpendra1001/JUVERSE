@@ -14,6 +14,15 @@ const eventsData = [
 
 function EventCard({ event }) {
   const [isHovered, setIsHovered] = useState(false);
+<<<<<<< Updated upstream
+=======
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    window.scrollTo(0, 0);
+    navigate(`/Singlevent/${event.eventName}`, { state: { event } });
+  };
+>>>>>>> Stashed changes
 
   return (
     <div
